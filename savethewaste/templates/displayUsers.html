@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+    <p>{{recipe.ingredients}}</p>
+
+{% for recipe in recipes %}
+    <h1>{{recipe.name}}</h1>
+{% endfor %}
+
+<div>
+    <h1>These are the users</h1>
+</div>
+
+{% for user in users %}
+    <h1>{{ user }}</h1>
+{% endfor %}
+
+
+<table>
+    {% for ingredient in ingredients %}
+    <td>{{ ingredient.name }}</td>
+    <td>{{ ingredient.expiryDate }}</td>
+</table>
+
+{% endblock content %}

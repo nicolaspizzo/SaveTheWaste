@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1><a href="{{recipe.url}}">{{ recipe.recipeName }}</a></h1>
+    <p>Saved on: {{ recipe.date }}</p>
+    <p>{{ recipe.description }}</p>
+    <p><b>Rating: </b>{{ recipe.rating }}</p>
+    {% for fact in recipe.facts %}
+        <p><b>{{fact}}</b></p>
+    {% endfor %}
+    <h3>Ingredients</h3>
+    {% for ingredient in recipe.recipeIngredients %}
+        <p>{{ ingredient }}</p>
+    {% endfor %}
+    {% for quantity in recipe.ingredientQuantity %}
+        <p>{{ quantity }}</p>
+    {% endfor %}
+    <h3>Instructions</h3>
+    {% for instruction in recipe.instructions %}
+        <p>{{ instruction }}</p>
+    {% endfor %}
+    <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal"
+            data-target="#deleteSavedRecipeModal{{ dbRecipe.recipeID }}">Delete</button>
+    <div class="modal fade" id="deleteSavedRecipeModal{{dbRecipe.recipeID}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete recipe?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <form action="{{ url_for('recipes.deleteRecipe', recipeID=dbRecipe.recipeID) }}" method="POST">
+                        <input class="btn btn-danger" type="submit" value="Delete">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Recipes Found</h1>
+    <span>All recipes found are provided by {{name}}.</span>
+    <div class="container">
+        <div class="row row-cols-3">
+            {% for recipe in recipes %}
+                <div class="col">
+                    <div class="card h-100" style="width: 18rem;">
+                        <div class="card-body">
+                            {% if recipe.bbc == True %}
+                                <h5 class="card-title"><a href="{{url_for('recipes.viewRecipe', recipeName=recipe.recipeName)}}">{{recipe.recipeName}}</a></h5>
+                            {% elif recipe.tesco == True %}
+                                <h5 class="card-title"><a href="{{url_for('recipes.viewRecipe', recipeName=recipe.recipeName)}}">{{recipe.recipeName}}</a></h5>
+                            {% elif recipe.sain == True %}
+                                <h5 class="card-title"><a href="{{url_for('recipes.viewRecipe', recipeName=recipe.recipeName)}}">{{recipe.recipeName}}</a></h5>
+                            {% endif %}
+                            <a class="btn btn-primary" href="{{recipe.url}}" target="_blank">View Original Recipe</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

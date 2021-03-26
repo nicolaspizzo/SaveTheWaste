@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1><a href="{{recipe.url}}">{{ recipe.recipeName }}</a></h1>
+    <p>{{ recipe.description }}</p>
+    <p><b>Rating: </b>{{ recipe.rating }}</p>
+    {% for fact in recipe.facts %}
+        <p><b>{{fact}}</b></p>
+    {% endfor %}
+    <h3>Ingredients</h3>
+    {% for ingredient in recipe.recipeIngredients %}
+        <p>{{ ingredient }}</p>
+    {% endfor %}
+    {% for quantity in recipe.ingredientQuantity %}
+        <p>{{ quantity }}</p>
+    {% endfor %}
+    <h3>Instructions</h3>
+    {% for instruction in recipe.instructions %}
+        <p>{{ instruction }}</p>
+    {% endfor %}
+    {% if form %}
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    {% endif %}
+{% endblock content %}

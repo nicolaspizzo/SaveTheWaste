@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    {% if name %}
+        <h1>Find a {{name}} recipe</h1>
+    {% else %}
+        <h1>Find a Recipe</h1>
+    {% endif %}
+    <form action="" method="POST" enctype="">
+        <div class="input-wrapper">
+            <div>
+                Ingredient: <br/>
+                <div class="input_fields_wrap">
+                    <button class="add_field_button">Add More Ingredients</button>
+                    <div><input type="text" name="mytext[]"></div>
+                </div>
+            </div>
+        </div>
+        <input class="btn btn-outline-info" type="submit" name="cmdsubmit">
+    </form>
+
+<script>
+    $(document).ready(function() {
+        var max_fields      = 10; //maximum input boxes allowed
+        const jsIngredients = {{ jsIngredientList | tojson }};
+        var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+        var add_button      = $(".add_field_button"); //Add button ID
+        var x = 1; //initlal text box count
+        var availableAttributes = jsIngredients;
+
+
+
+        $(add_button).click(function(e){ //on add input button click
+            e.preventDefault();
+            if(x < max_fields){ //max input box allowed
+                x++; //text box increment
+                $(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>');
+
+                $(wrapper).find('input[type=text]:last').autocomplete({
+                    source: availableAttributes
+                });
+                //add input box
+            }
+        });
+
+        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+            e.preventDefault(); $(this).parent('div').remove(); x--;
+        })
+
+        $("input[name^='mytext']").autocomplete({
+            source: availableAttributes
+        });
+    });
+
+</script>
+{% endblock content %}

@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Recipes Found</h1>
+    <span>All recipes found are provided by BBC.</span>
+    <div class="container">
+        <div class="row row-cols-3">
+            {% for recipe in bbcRecipes %}
+                <div class="col">
+                    <div class="card h-100" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="{{url_for('recipes.viewRecipe', recipeName=recipe.recipeName)}}">{{recipe.recipeName}}</a></h5>
+                            <a class="btn btn-primary" href="{{recipe.url}}" target="_blank">View Original Recipe</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <br>
+    <br>
+    <span>All recipes found are provided by Tesco.</span>
+    <div class="container">
+        <div class="row row-cols-3">
+            {% for recipe in tescoRecipes %}
+                <div class="col">
+                    <div class="card h-100" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="{{url_for('recipes.viewRecipe', recipeName=recipe.recipeName)}}">{{recipe.recipeName}}</a></h5>
+                            <a class="btn btn-primary" href="{{recipe.url}}" target="_blank">View Original Recipe</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <br>
+    <br>
+    <span>All recipes found are provided by Sainsbury's.</span>
+    <div class="container">
+        <div class="row row-cols-3">
+            {% for recipe in sainsburyRecipes %}
+                <div class="col">
+                    <div class="card h-100" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="{{url_for('recipes.viewRecipe', recipeName=recipe.recipeName)}}">{{recipe.recipeName}}</a></h5>
+                            <a class="btn btn-primary" href="{{recipe.url}}" target="_blank">View Original Recipe</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ ingForm.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border_bottom mb-4">Add Ingredient</legend>
+                <div class="form-group">
+                    {{ ingForm.ingredientName.label(class="form-control-label") }}
+
+                    {% if ingForm.ingredientName.errors %}
+                        {{ ingForm.ingredientName(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in ingForm.ingredientName.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ ingForm.ingredientName(class="form-control form-control-lg") }}
+                    {% endif %}
+
+                </div>
+                <div class="form-group">
+                    {{ ingForm.quantity.label(class="form-control-label") }}
+                    {% if ingForm.quantity.errors %}
+                        {{ ingForm.quantity(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in ingForm.quantity.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ ingForm.quantity(class="form-control form-control-lg") }}
+                    {% endif %}
+
+                </div>
+                <div class="form-group">
+                    {{ ingForm.expirationDate.label(class="form-control-label") }}
+                    {% if ingForm.expirationDate.errors %}
+                        {{ ingForm.expirationDate(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in ingForm.expirationDate.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ ingForm.expirationDate(class="form-control form-control-lg") }}
+                    {% endif %}
+
+                </div>
+                
+            </fieldset>
+            <div class="form-group">
+                {{ ingForm.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+    
+{% endblock content %}

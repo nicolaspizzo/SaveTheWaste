@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>{{pantry.name}}</h1>
+    <table class="table table-striped hover" id="datatable">
+        <thead>
+            <tr>
+                <th scope="col">Ingredient Name</th>
+                <th scope="col">Expiry Date</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ingredient in ingredients %}
+                <tr>
+                    <td>{{ingredient.ingredientName}}</td>
+                    <td>{{ingredient.expiryDate}}</td>
+                    <td>{{ingredient.quantity}}</td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal"
+                                data-target="#deleteIngredientModal{{ ingredient.pingID }}">Delete</button>
+                    </td>
+                </tr>
+                <div class="modal fade" id="deleteIngredientModal{{ingredient.pingID}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Delete ingredient?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <form action="{{ url_for('pantry.deleteIngredient', pingID=ingredient.pingID) }}" method="POST">
+                                    <input class="btn btn-danger" type="submit" value="Delete">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-outline-info btn-sm m-1" data-toggle="modal"
+                                data-target="#addIngredientModal">Add Ingredient</button>
+    <div id="addIngredientModal" class="modal fade" role="dialog">
+       <div class="modal-dialog">
+          <div class="modal-content">
+             <div class="modal-header">
+                <h4 class="modal-title">Add Ingredient</h4>
+             </div>
+             <div class="modal-body">
+                <form action="" method="POST" enctype="">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {% if form.name.errors %}
+                            {{ form.name(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.name.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.name(class="form-control form-control-lg", placeholder="Tomato, etc.") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {% if form.quantity.errors %}
+                            {{ form.quantity(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.quantity.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.quantity(class="form-control form-control-lg", placeholder="1, 2, etc.") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {% if form.expiryDate.errors %}
+                            {{ form.expiryDate(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.expiryDate.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.expiryDate(class="form-control form-control-lg", placeholder="") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.submit(class="btn btn-outline-info") }}
+                    </div>
+                </form>
+             </div>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             </div>
+          </div>
+       </div>
+    </div>
+{% endblock content %}
+
+
+

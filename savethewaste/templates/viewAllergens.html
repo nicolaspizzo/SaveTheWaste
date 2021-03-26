@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Current Allergen Status</h1>
+    <p>Dairy Free: <b>{{allergens.dairyFree}}</b></p>
+    <p>Gluten Free: <b>{{allergens.glutenFree}}</b></p>
+    <p>Nut Free: <b>{{allergens.nutFree}}</b></p>
+    <p>Vegetarian: <b>{{allergens.vegetarian}}</b></p>
+    <p>Vegan: <b>{{allergens.vegan}}</b></p>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group form-check">
+            <legend class="border_bottom mb-4">Allergens</legend>
+            <p>Please tick which allergens you would like to filter for.  Note: Every subsequent submission will update unticked allergens to be False</p>
+            <div class="form-group">
+                {{ form.dairyFree.label(class="form-check-label") }}
+                {{ form.dairyFree(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                {{ form.glutenFree.label(class="form-control-label") }}
+                {{ form.glutenFree(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                {{ form.nutFree.label(class="form-control-label") }}
+                {{ form.nutFree(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                {{ form.vegetarian.label(class="form-control-label") }}
+                {{ form.vegetarian(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                {{ form.vegan.label(class="form-control-label") }}
+                {{ form.vegan(class="form-control form-control-lg") }}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+{% endblock content %}
+
+
+
